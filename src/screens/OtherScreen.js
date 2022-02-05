@@ -4,7 +4,8 @@ import styled from 'styled-components/native';
 const OtherScreen = props => {
   return (
     <OtherScreenContent>
-      <Square />
+      {/* <Square /> */}
+      
     </OtherScreenContent>
   );
 };

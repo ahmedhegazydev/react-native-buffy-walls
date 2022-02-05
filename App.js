@@ -9,10 +9,12 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 
-import HomeScreen from './HomePage';
-import OtherScreen from './OtherScreen';
-import {withFancyDrawer} from './withFancyHeader';
+import HomeScreen from './src/screens/home/HomePage';
+import {Avatar} from 'react-native-image-avatars';
 
+import OtherScreen from './src/screens/OtherScreen';
+import {withFancyDrawer} from './src/screens/withFancyHeader';
+import HeaderTitle from './src/components/header/HeaderTtile';
 export const THEME_COLOR = '#0069fe';
 
 // We are gonna use react Context to passe the progress animated Value
@@ -28,7 +30,8 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <FakeDrawerHeader>
-        <AppTitle>FancyDrawer</AppTitle>
+        {/* <AppTitle>FancyDrawer</AppTitle> */}
+        <HeaderTitle />
       </FakeDrawerHeader>
       <DrawerItemList
         inactiveBackgroundColor={'transparent'}
@@ -62,10 +65,10 @@ export default function App() {
               name="Home"
               component={withFancyDrawer(HomeScreen)}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
               name="OtherScreen"
               component={withFancyDrawer(OtherScreen)}
-            />
+/> */}
           </Drawer.Navigator>
         </NavigationContainer>
       </View>

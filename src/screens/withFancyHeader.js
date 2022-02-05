@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import Animated, {interpolate} from 'react-native-reanimated';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
-import {AnimatedContext, THEME_COLOR} from './App';
+import {AnimatedContext, THEME_COLOR} from '../../App';
 
 export function withFancyDrawer(Component) {
   function Wrapper({children}) {

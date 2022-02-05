@@ -1,112 +1,86 @@
+import React, {useState, useContext} from 'react';
+import {View, Dimensions} from 'react-native';
+import Animated, {interpolate} from 'react-native-reanimated';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
+import styled from 'styled-components/native';
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
+
+import HomeScreen from './HomePage';
+import OtherScreen from './OtherScreen';
+import {withFancyDrawer} from './withFancyHeader';
+
+export const THEME_COLOR = '#0069fe';
+
+// We are gonna use react Context to passe the progress animated Value
+// from react-navigation drawer to the Wrapper
+export const AnimatedContext = React.createContext(void 0);
+
+const Drawer = createDrawerNavigator();
+
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
+ * The drawer itself
  */
-
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+function CustomDrawerContent(props) {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <DrawerContentScrollView {...props}>
+      <FakeDrawerHeader>
+        <AppTitle>FancyDrawer</AppTitle>
+      </FakeDrawerHeader>
+      <DrawerItemList
+        inactiveBackgroundColor={'transparent'}
+        inactiveTintColor={'white'}
+        activeBackgroundColor={'#FFFFFF88'}
+        activeTintColor={'white'}
+        {...props}
+      />
+    </DrawerContentScrollView>
   );
-};
+}
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+export default function App() {
+  const [animatedValue, setAnimatedValue] = useState(new Animated.Value(0));
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <AnimatedContext.Provider value={animatedValue}>
+      <View style={{backgroundColor: THEME_COLOR, flex: 1}}>
+        <NavigationContainer>
+          <Drawer.Navigator
+            drawerStyle={{
+              backgroundColor: 'transparent',
+            }}
+            drawerType={'slide'}
+            initialRouteName="Home"
+            overlayColor="transparent"
+            drawerContent={props => {
+              setAnimatedValue(props.progress);
+              return <CustomDrawerContent {...props} />;
+            }}>
+            <Drawer.Screen
+              name="Home"
+              component={withFancyDrawer(HomeScreen)}
+            />
+            <Drawer.Screen
+              name="OtherScreen"
+              component={withFancyDrawer(OtherScreen)}
+            />
+          </Drawer.Navigator>
+        </NavigationContainer>
+      </View>
+    </AnimatedContext.Provider>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+const FakeDrawerHeader = styled.View`
+  width: 100%;
+  aspect-ratio: 1.5;
+  align-items: center;
+  justify-content: center;
+`;
+const AppTitle = styled.Text`
+  font-size: 22px;
+  color: white;
+  font-weight: bold;
+`;

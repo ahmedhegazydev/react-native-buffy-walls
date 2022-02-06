@@ -15,6 +15,10 @@ import {Avatar} from 'react-native-image-avatars';
 import OtherScreen from './src/screens/OtherScreen';
 import {withFancyDrawer} from './src/screens/withFancyHeader';
 import HeaderTitle from './src/components/header/HeaderTtile';
+
+import {Icon} from 'react-native-elements';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+
 export const THEME_COLOR = '#0069fe';
 
 // We are gonna use react Context to passe the progress animated Value
@@ -64,11 +68,23 @@ export default function App() {
             <Drawer.Screen
               name="Home"
               component={withFancyDrawer(HomeScreen)}
+              options={{
+                title: 'Home',
+                drawerIcon: ({focused, size}) => (
+                  <Icon
+                    name="rowing"
+                    size={size}
+                    color={focused ? '#7cc' : '#ccc'}
+                  />
+                ),
+              }}
             />
             {/* <Drawer.Screen
               name="OtherScreen"
               component={withFancyDrawer(OtherScreen)}
-/> */}
+            /> */}
+
+            {/* <AppTitle>FancyDrawer</AppTitle> */}
           </Drawer.Navigator>
         </NavigationContainer>
       </View>

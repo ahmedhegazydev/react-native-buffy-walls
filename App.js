@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {View, Dimensions} from 'react-native';
+import {View, Dimensions, Text} from 'react-native';
 import Animated, {interpolate} from 'react-native-reanimated';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -32,19 +32,41 @@ const Drawer = createDrawerNavigator();
  */
 function CustomDrawerContent(props) {
   return (
-    <DrawerContentScrollView {...props}>
-      <FakeDrawerHeader>
-        {/* <AppTitle>FancyDrawer</AppTitle> */}
-        <HeaderTitle />
-      </FakeDrawerHeader>
-      <DrawerItemList
-        inactiveBackgroundColor={'transparent'}
-        inactiveTintColor={'white'}
-        activeBackgroundColor={'#FFFFFF88'}
-        activeTintColor={'white'}
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+      }}>
+      <DrawerContentScrollView
         {...props}
-      />
-    </DrawerContentScrollView>
+        style={{
+          flex: 1,
+          // flexDirection: 'row',
+        }}>
+        <FakeDrawerHeader>
+          {/* <AppTitle>FancyDrawer</AppTitle> */}
+          <HeaderTitle />
+        </FakeDrawerHeader>
+        <DrawerItemList
+          inactiveBackgroundColor={'transparent'}
+          inactiveTintColor={'white'}
+          activeBackgroundColor={'#FFFFFF88'}
+          activeTintColor={'white'}
+          {...props}
+        />
+      </DrawerContentScrollView>
+      <View
+        style={{
+          flex: 2,
+          // flexDirection: 'column',
+        }}>
+        <Text
+          title=" inactiveTintColor={'white'}
+            activeBackgrou "
+          style={{fontSize: 30}}
+        />
+      </View>
+    </View>
   );
 }
 

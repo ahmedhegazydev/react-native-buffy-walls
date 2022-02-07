@@ -1,5 +1,11 @@
 import React, {useState, useContext} from 'react';
-import {View, Dimensions, Text} from 'react-native';
+import {
+  View,
+  Dimensions,
+  Text,
+  useWindowDimensions,
+  Linking,
+} from 'react-native';
 import Animated, {interpolate} from 'react-native-reanimated';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,6 +13,7 @@ import styled from 'styled-components/native';
 import {
   DrawerContentScrollView,
   DrawerItemList,
+  DrawerItem,
 } from '@react-navigation/drawer';
 
 import HomeScreen from './src/screens/home/HomePage';
@@ -18,6 +25,10 @@ import HeaderTitle from './src/components/header/HeaderTtile';
 
 import {Icon} from 'react-native-elements';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
+import IconShare from 'react-native-vector-icons/AntDesign';
+
+import {TabBar} from 'react-native-curved-bottom-bar';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const THEME_COLOR = '#0069fe';
 
@@ -32,46 +43,36 @@ const Drawer = createDrawerNavigator();
  */
 function CustomDrawerContent(props) {
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-      }}>
+    <View style={{flex: 1}}>
       <DrawerContentScrollView
         {...props}
         style={{
           flex: 1,
           // flexDirection: 'row',
+          // backgroundColor: 'red',
+          height: 400,
         }}>
         <FakeDrawerHeader>
           {/* <AppTitle>FancyDrawer</AppTitle> */}
           <HeaderTitle />
         </FakeDrawerHeader>
-        <DrawerItemList
+        {/* <DrawerItemList
           inactiveBackgroundColor={'transparent'}
           inactiveTintColor={'white'}
           activeBackgroundColor={'#FFFFFF88'}
           activeTintColor={'white'}
           {...props}
-        />
+        /> */}
       </DrawerContentScrollView>
-      <View
-        style={{
-          flex: 2,
-          // flexDirection: 'column',
-        }}>
-        <Text
-          title=" inactiveTintColor={'white'}
-            activeBackgrou "
-          style={{fontSize: 30}}
-        />
-      </View>
     </View>
   );
 }
 
 export default function App() {
   const [animatedValue, setAnimatedValue] = useState(new Animated.Value(0));
+
+  const {width, height} = Dimensions.get('window');
+
   return (
     <AnimatedContext.Provider value={animatedValue}>
       <View style={{backgroundColor: THEME_COLOR, flex: 1}}>
@@ -80,7 +81,26 @@ export default function App() {
             drawerStyle={{
               backgroundColor: 'transparent',
             }}
+            backBehavior={'none'}
+            defaultStatus={'open'}
+            // drawerType={'front'}
+            // drawerType={'back'}
             drawerType={'slide'}
+            // drawerType={'permanent'}
+
+            // drawerContentOptions={{
+            //   activeTintColor: 'red',
+            //   activeBackgroundColor: 'grey',
+            //   inactiveTintColor: 'blue',
+            //   inactiveBackgroundColor: 'white',
+            //   labelStyle: {
+            //     marginLeft: 30,
+            //   },
+            // }}
+
+            screenOptions={{
+              drawerType: width >= 768 ? 'permanent' : 'front',
+            }}
             initialRouteName="Home"
             overlayColor="transparent"
             drawerContent={props => {
@@ -101,12 +121,6 @@ export default function App() {
                 ),
               }}
             />
-            {/* <Drawer.Screen
-              name="OtherScreen"
-              component={withFancyDrawer(OtherScreen)}
-            /> */}
-
-            {/* <AppTitle>FancyDrawer</AppTitle> */}
           </Drawer.Navigator>
         </NavigationContainer>
       </View>

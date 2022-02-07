@@ -12,6 +12,10 @@ target 'BuffyWalls' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-viewpager', :path => '../node_modules/@react-native-community/viewpager'
+
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'BuffyWallsTests' do
     inherit! :complete
     # Pods for testing

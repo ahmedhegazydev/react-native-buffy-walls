@@ -37,7 +37,8 @@ const HeaderTitle = props => {
   return (
     <View
       style={{
-        marginBottom: 20,
+        marginBottom: 10,
+        marginTop: 10,
       }}>
       <HeaderTitleView>
         <TouchableHighlight

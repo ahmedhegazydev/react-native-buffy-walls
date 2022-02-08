@@ -5,6 +5,8 @@ import {
   Text,
   useWindowDimensions,
   Linking,
+  ScrollView,
+  FlatList,
 } from 'react-native';
 import Animated, {interpolate} from 'react-native-reanimated';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -29,6 +31,7 @@ import IconShare from 'react-native-vector-icons/AntDesign';
 
 import {TabBar} from 'react-native-curved-bottom-bar';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DrawerListItem from './src/components/DrawerListItem';
 
 export const THEME_COLOR = '#0069fe';
 
@@ -36,7 +39,22 @@ export const THEME_COLOR = '#0069fe';
 // from react-navigation drawer to the Wrapper
 export const AnimatedContext = React.createContext(void 0);
 
+const item = {title: 'Share', iconName: ''};
+
 const Drawer = createDrawerNavigator();
+
+const items = [
+  {
+    title: 'Share Our App',
+    iconName: 'sharealt',
+    key: '1',
+  },
+  {
+    title: 'Clear Cache',
+    iconName: 'delete',
+    key: '2',
+  },
+];
 
 /**
  * The drawer itself
@@ -63,6 +81,20 @@ function CustomDrawerContent(props) {
           activeTintColor={'white'}
           {...props}
         /> */}
+
+        {/* <DrawerListItem item={item} /> */}
+
+        {/* {items.map((item, index) => {
+          // console.log(item.title);
+          <View key={item.key}>
+            <DrawerListItem listItem={item} />
+          </View>;
+        })} */}
+
+        <FlatList
+          data={items}
+          renderItem={({item}) => <DrawerListItem listItem={item} />}
+        />
       </DrawerContentScrollView>
     </View>
   );

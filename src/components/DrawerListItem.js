@@ -7,18 +7,33 @@ import {
   TouchableOpacity,
   Linking,
   Dimensions,
+  Text,
 } from 'react-native';
 
 import {Divider} from 'react-native-elements';
 import PropTypes from 'prop-types';
 
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
+
 // import {Icon} from 'react-native-elements';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 // import Icon from 'react-native-vector-icons/FontAwesome5';
 // import Icon from 'react-native-vector-icons/Ionicons';
-import IconForward from 'react-native-vector-icons/AntDesign';
+import IconShare from 'react-native-vector-icons/AntDesign';
 
 const DrawerListItem = props => {
+  //   console.log(listItem.title);
+  console.log(props);
+
+  //   static propTypes = {
+  //     name: PropTypes.string.isRequired,
+  //     isYummy: PropTypes.bool.isRequired
+  //   }
+
   return (
     <View
       style={
@@ -29,7 +44,7 @@ const DrawerListItem = props => {
       <DrawerItem
         icon={() => (
           <IconShare
-            name="sharealt"
+            name={''}
             size={20}
             style={
               {
@@ -40,7 +55,7 @@ const DrawerListItem = props => {
         )}
         // label="Share Our App"
         label={() => (
-          <Text style={{color: '#000000', fontSize: 20}}>Share Our App</Text>
+          <Text style={{color: '#000000', fontSize: 20}}>Hssdsfsds sdfsdf</Text>
         )}
         onPress={() => Linking.openURL('https://mywebsite.com/help')}
         style={
@@ -56,10 +71,22 @@ const DrawerListItem = props => {
   );
 };
 
-DrawerListItem.propTypes = {
-  title: PropTypes.string,
-  iconName: PropTypes.string,
-};
+// DrawerListItem.propTypes = {
+//   listItem: PropTypes.shape({
+
+//   title: PropTypes.string.isRequired,
+//   iconName: PropTypes.string.isRequired,
+
+//   title: PropTypes.string,
+//   iconName: PropTypes.string,
+
+//   }),
+//   listItem: PropTypes.object
+// };
+
+// DrawerListItem.defaultProps = {
+
+// }
 
 export default DrawerListItem;
 

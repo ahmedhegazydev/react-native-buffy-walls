@@ -45,14 +45,35 @@ const Drawer = createDrawerNavigator();
 
 const items = [
   {
-    title: 'Share Our App',
-    iconName: 'sharealt',
+    title: 'Clear Cache',
+    iconName: 'delete',
     key: '1',
   },
   {
-    title: 'Clear Cache',
-    iconName: 'delete',
+    title: 'Share Our App',
+    iconName: 'sharealt',
     key: '2',
+  },
+
+  {
+    title: 'Rate the app',
+    iconName: 'like2',
+    key: '3',
+  },
+  {
+    title: 'Other apps',
+    iconName: 'windows',
+    key: '3',
+  },
+  {
+    title: 'About Us',
+    iconName: 'team',
+    key: '4',
+  },
+  {
+    title: 'Go pro',
+    iconName: 'appstore-o',
+    key: '5',
   },
 ];
 

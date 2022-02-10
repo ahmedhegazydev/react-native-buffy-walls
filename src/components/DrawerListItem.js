@@ -25,9 +25,9 @@ import {
 // import Icon from 'react-native-vector-icons/Ionicons';
 import IconShare from 'react-native-vector-icons/AntDesign';
 
-const DrawerListItem = props => {
+const DrawerListItem = ({listItem}) => {
   //   console.log(listItem.title);
-  console.log(props);
+  console.log(listItem);
 
   //   static propTypes = {
   //     name: PropTypes.string.isRequired,
@@ -44,7 +44,7 @@ const DrawerListItem = props => {
       <DrawerItem
         icon={() => (
           <IconShare
-            name={''}
+            name={listItem.iconName}
             size={20}
             style={
               {
@@ -55,7 +55,7 @@ const DrawerListItem = props => {
         )}
         // label="Share Our App"
         label={() => (
-          <Text style={{color: '#000000', fontSize: 20}}>Hssdsfsds sdfsdf</Text>
+          <Text style={{color: '#000000', fontSize: 20}}>{listItem.title}</Text>
         )}
         onPress={() => Linking.openURL('https://mywebsite.com/help')}
         style={
@@ -71,18 +71,16 @@ const DrawerListItem = props => {
   );
 };
 
-// DrawerListItem.propTypes = {
-//   listItem: PropTypes.shape({
+DrawerListItem.propTypes = {
+  listItem: PropTypes.shape({
+    //   title: PropTypes.string.isRequired,
+    //   iconName: PropTypes.string.isRequired,
 
-//   title: PropTypes.string.isRequired,
-//   iconName: PropTypes.string.isRequired,
-
-//   title: PropTypes.string,
-//   iconName: PropTypes.string,
-
-//   }),
-//   listItem: PropTypes.object
-// };
+    title: PropTypes.string,
+    iconName: PropTypes.string,
+  }),
+  //   listItem: PropTypes.object
+};
 
 // DrawerListItem.defaultProps = {
 
